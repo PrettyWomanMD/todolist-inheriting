@@ -26,7 +26,7 @@
         <?php foreach ($allTasks as $task) { ?>
             <h4>Title: <?= $task['title'] ?></h4>
             <p>Content: <?= $task['text'] ?></p>
-            <i>Author: <?= $task['author'] ?>, <?= $task['registration_data'] ?>:</i>
+            <i>Author: <?= $task['author'] ?>, <?= $task['task_data'] ?>:</i>
             <form style="margin-top: 25px" action="/completedTask/<?= $task['id_task'] ?>" method="post">
                 <input type="submit" name="completed" value="Completed">
             </form>

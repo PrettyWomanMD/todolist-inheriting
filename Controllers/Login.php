@@ -11,13 +11,15 @@ class Login extends BaseController
 {
     public function getLogin()
     {
-        $headerTemplate = $this->includeTemplate("v_header");
+        $onLoginPage = true;
+        $headerTemplate = $this->includeTemplate("v_header", ['onLoginPage' => $onLoginPage]);
         print $this->includeTemplate('v_login', ["headerTemplate" => $headerTemplate]);
     }
 
     public function postLogin()
     {
         $errors = [];
+        $onLoginPage = true;
         $error = new Errors();
         $database = new Database();
         $userInfo = $database->selectUserFromDatabaseByEmail($_POST['email']);
@@ -41,8 +43,9 @@ class Login extends BaseController
             $this->headerLocation('/');
         }
 
-        $headerTemplate = $this->includeTemplate("v_header");
-        print $this->includeTemplate('v_login', ["headerTemplate" => $headerTemplate, 'errors' => $errors]);
+        $headerTemplate = $this->includeTemplate("v_header", ['onLoginPage' => $onLoginPage]);
+        print $this->includeTemplate('v_login',
+            ["headerTemplate" => $headerTemplate, 'errors' => $errors]);
     }
 
 }

@@ -50,7 +50,7 @@ class Database
 
     public function selectAllTasksByUser($userId)
     {
-        $sql = "SELECT * FROM tasks LEFT JOIN users ON tasks.author = users.id WHERE author = :userId And status = 0;";
+        $sql = "SELECT * FROM tasks LEFT JOIN users ON tasks.author = users.id WHERE author = :userId And status = 0 ORDER BY task_data DESC ;";
         $query = $this->db->prepare($sql);
         $query->bindValue(':userId', $userId, PDO::PARAM_INT);
         $query->execute();

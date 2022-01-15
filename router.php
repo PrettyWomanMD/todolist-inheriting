@@ -37,7 +37,7 @@ if (($url === '/registration') && ($_SERVER['REQUEST_METHOD'] === 'POST')) {
     $registration->postRegistration();
 }
 
-if ((strpos($_SERVER['REQUEST_URI'],"/completedTask/") === 0) && ($_SERVER['REQUEST_METHOD'] === 'POST')) {
+if ((strpos($_SERVER['REQUEST_URI'], "/completedTask/") === 0) && ($_SERVER['REQUEST_METHOD'] === 'POST')) {
     $completed = new CompletedTask();
     $completed->completedTaskPost();
 }

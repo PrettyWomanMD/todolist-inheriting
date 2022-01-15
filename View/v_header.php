@@ -6,9 +6,13 @@
             <a style="color: white" href="/">Home</a>
         <?php } ?>
         <?php if (empty($_SESSION['email'])) { ?>
-            <a style="margin-left: 50px; color: white" href='/login'>Login</a>
-            <a style="margin-left: 50px; color: white" href='/registration'>Registration</a>
-        <?php } ?>
+            <?php if (!isset($onLoginPage)) { ?>
+                <a style="margin-left: 50px; color: white" href='/login'>Login</a>
+            <?php } ?>
+            <?php if (!isset($onRegisterPage)) { ?>
+                <a style="margin-left: 50px; color: white" href='/registration'>Registration</a>
+            <?php }
+        } ?>
         <?php if (isset($_SESSION['email'])) { ?>
             <a style="margin-left: 50px; color: white" href='/logout'>Logout</a>
         <?php } ?>

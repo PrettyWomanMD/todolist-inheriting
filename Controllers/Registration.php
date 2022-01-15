@@ -12,14 +12,15 @@ class Registration extends BaseController
 {
     public function getRegistration()
     {
-        $headerTemplate = $this->includeTemplate("v_header");
+        $onRegisterPage = true;
+        $headerTemplate = $this->includeTemplate("v_header", ['onRegisterPage' => $onRegisterPage]);
         print $this->includeTemplate('v_registration', ["headerTemplate" => $headerTemplate]);
     }
 
     public function postRegistration()
     {
         $errors = [];
-
+        $onRegisterPage = true;
         $error = new Errors();
         $error->isEmpty($_POST['name'], $errors, 'name', "Field username is empty!");
 
@@ -43,7 +44,7 @@ class Registration extends BaseController
             $this->headerLocation('/');
         }
 
-        $headerTemplate = $this->includeTemplate("v_header");
+        $headerTemplate = $this->includeTemplate("v_header", ['onRegisterPage' => $onRegisterPage]);
         print $this->includeTemplate('v_registration', ["headerTemplate" => $headerTemplate, "errors" => $errors]);
     }
 
