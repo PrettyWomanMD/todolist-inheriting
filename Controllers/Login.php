@@ -12,8 +12,7 @@ class Login extends BaseController
     public function getLogin()
     {
         $onLoginPage = true;
-        $headerTemplate = $this->includeTemplate("v_header", ['onLoginPage' => $onLoginPage]);
-        print $this->includeTemplate('v_login', ["headerTemplate" => $headerTemplate]);
+        print $this->includeTemplate('v_login', ['onLoginPage' => $onLoginPage]);
     }
 
     public function postLogin()
@@ -40,12 +39,12 @@ class Login extends BaseController
 
         if (empty($errors)) {
             $_SESSION['email'] = $_POST['email'];
+            $_SESSION['userId'] = $userInfo['id'];
             $this->headerLocation('/');
         }
 
-        $headerTemplate = $this->includeTemplate("v_header", ['onLoginPage' => $onLoginPage]);
         print $this->includeTemplate('v_login',
-            ["headerTemplate" => $headerTemplate, 'errors' => $errors]);
+            ['errors' => $errors, 'onLoginPage' => $onLoginPage]);
     }
 
 }

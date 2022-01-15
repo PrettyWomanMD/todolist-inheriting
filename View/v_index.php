@@ -1,7 +1,7 @@
-<?= $headerTemplate; ?>
+<?= $this->includeTemplate("v_header"); ?>
 <div style="font-size: 50px; text-align: center; margin-top: 50px;">Hello!</div>
 <div style="margin-left: 50px">
-    <?php if (isset($_SESSION['email'])) {
+    <?php if (isset($_SESSION['userId'])) {
         ?>
         <div>
             <div style="margin-bottom: 25px; font-size: 25px">Add new task</div>

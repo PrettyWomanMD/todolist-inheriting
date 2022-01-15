@@ -1,4 +1,4 @@
-<?= $headerTemplate; ?>
+<?= $this->includeTemplate("v_header"); ?>
 <div style="text-align: center; margin-top: 50px">
     <form method="post" action="">
         <label>Email:</label>

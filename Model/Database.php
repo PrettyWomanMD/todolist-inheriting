@@ -64,4 +64,28 @@ class Database
         $query->bindValue(':taskId', $taskId, PDO:: PARAM_INT);
         $query->execute();
     }
+
+    public function lastInsertUserId()
+    {
+        $sql = "SELECT LAST_INSERT_ID()";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_COLUMN);
+    }
+
+    public function verifyTaskByUser($taskId, $userId)
+    {
+        $sql = "SELECT * FROM users LEFT JOIN tasks On users.id = task.author WHERE id = :userId AND id_task = :taskId";
+        $query = $this->db->prepare($sql);
+        $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $query->bindValue(':taskId', $taskId, PDO::PARAM_INT);
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (isset($result)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }

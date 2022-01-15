@@ -13,8 +13,7 @@ class Registration extends BaseController
     public function getRegistration()
     {
         $onRegisterPage = true;
-        $headerTemplate = $this->includeTemplate("v_header", ['onRegisterPage' => $onRegisterPage]);
-        print $this->includeTemplate('v_registration', ["headerTemplate" => $headerTemplate]);
+        print $this->includeTemplate('v_registration', ["onRegisterPage" => $onRegisterPage]);
     }
 
     public function postRegistration()
@@ -41,11 +40,11 @@ class Registration extends BaseController
             $database = new Database();
             $database->insertUserIntoDatabase($user->getName(), $user->getEmail(), $user->getPassword());
             $_SESSION['email'] = $user->getEmail();
+            $_SESSION['userId'] = $database->lastInsertUserId();
             $this->headerLocation('/');
         }
 
-        $headerTemplate = $this->includeTemplate("v_header", ['onRegisterPage' => $onRegisterPage]);
-        print $this->includeTemplate('v_registration', ["headerTemplate" => $headerTemplate, "errors" => $errors]);
+        print $this->includeTemplate('v_registration', ["errors" => $errors, 'onRegisterPage' => $onRegisterPage]);
     }
 
 }

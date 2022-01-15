@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$url = rtrim($_SERVER['REQUEST_URI'], "\t/");
+$url = rtrim($_SERVER['REQUEST_URI'], "/");
 
 function autoloading(string $class)
 {

@@ -12,16 +12,12 @@ class Index extends BaseController
 {
     public function getIndex()
     {
-        $headerTemplate = $this->includeTemplate("v_header");
         $allTasks = [];
-
-        if (isset($_SESSION['email'])) {
+        if (isset($_SESSION['userId'])) {
             $database = new Database();
-            $userInfo = $database->selectUserFromDatabaseByEmail($_SESSION['email']);
-            $allTasks = $database->selectAllTasksByUser($userInfo['id']);
-
+            $allTasks = $database->selectAllTasksByUser($_SESSION['userId']);
         }
-        print $this->includeTemplate('v_index', ["headerTemplate" => $headerTemplate, 'allTasks' => $allTasks]);
+        print $this->includeTemplate('v_index', ['allTasks' => $allTasks]);
     }
 
 
@@ -31,19 +27,18 @@ class Index extends BaseController
         $errors = [];
         $database = new Database();
         $error = new Errors();
-        $userInfo = $database->selectUserFromDatabaseByEmail($_SESSION['email']);
-        $userId = $userInfo['id'];
+        $userId = $_SESSION['userId'];
         $allTasks = $database->selectAllTasksByUser($userId);
-        $task = new Task($_POST['title'], $_POST['text'], $userId);
-        $error->isEmpty($task->getTitle(), $errors, 'title', "Empty field title!");
-        $error->isEmpty($task->getText(), $errors, 'text', "Empty field content!");
+        $error->isEmpty($_POST['title'], $errors, 'title', "Empty field title!");
+        $error->isEmpty($_POST['text'], $errors, 'text', "Empty field content!");
 
         if (empty($errors)) {
+            $task = new Task($_POST['title'], $_POST['text'], $userId);
             $database->insertNewTaskIntoDatabase($task->getTitle(), $task->getText(), $task->getAuthor());
             $this->headerLocation("/");
         }
 
         print $this->includeTemplate('v_index',
-            ["headerTemplate" => $headerTemplate, 'allTasks' => $allTasks, 'errors' => $errors]);
+            ['allTasks' => $allTasks, 'errors' => $errors]);
     }
 }

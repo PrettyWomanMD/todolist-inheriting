@@ -12,7 +12,9 @@ class CompletedTask extends BaseController
     {
         $taskId = (int)filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_NUMBER_INT);
         $database = new Database();
-        $database->modifyTaskStatusAsCompleted($taskId);
+        if ($database->verifyTaskByUser($taskId, $_SESSION['userId'])) {
+            $database->modifyTaskStatusAsCompleted($taskId);
+        }
         $this->headerLocation('/');
     }
 
