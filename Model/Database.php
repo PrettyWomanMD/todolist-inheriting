@@ -64,5 +64,4 @@ class Database
         $query->bindValue(':taskId', $taskId, PDO:: PARAM_INT);
         $query->execute();
     }
-
 }

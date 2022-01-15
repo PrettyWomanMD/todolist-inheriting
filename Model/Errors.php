@@ -36,8 +36,6 @@ class Errors
         }
     }
 
-
-
     public function invalidPassword($postPassword, $databasePassword, &$errors, $errorKey)
     {
         if (!password_verify($postPassword, $databasePassword)) {

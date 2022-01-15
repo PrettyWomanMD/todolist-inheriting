@@ -3,7 +3,7 @@
     <form method="post" action="">
         <label>Username:</label>
         <input type="text" name="name" value="<?= isset($_POST['name']) ? $_POST['name'] : ''; ?>">
-       <div style="color: red"><?= isset($errors['name']) ? $errors['name'] : ''; ?> </div>
+        <div style="color: red"><?= isset($errors['name']) ? $errors['name'] : ''; ?> </div>
         <br>
         <br>
         <label>Email:</label>
