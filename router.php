@@ -1,5 +1,6 @@
 <?php
 
+use Controllers\CompletedTask;
 use Controllers\Index;
 use Controllers\Login;
 use Controllers\Logout;
@@ -12,6 +13,10 @@ if (($url === '') && ($_SERVER['REQUEST_METHOD'] === 'GET')) {
     $index->getIndex();
 }
 
+if (($url === '') && ($_SERVER['REQUEST_METHOD'] === 'POST')) {
+    $index = new Index();
+    $index->postIndex();
+}
 if (($url === '/login') && ($_SERVER['REQUEST_METHOD'] === 'GET')) {
     $login = new Login();
     $login->getLogin();
@@ -30,6 +35,11 @@ if (($url === '/registration') && ($_SERVER['REQUEST_METHOD'] === 'GET')) {
 if (($url === '/registration') && ($_SERVER['REQUEST_METHOD'] === 'POST')) {
     $registration = new Registration();
     $registration->postRegistration();
+}
+
+if ((strpos($_SERVER['REQUEST_URI'],"/completedTask/") === 0) && ($_SERVER['REQUEST_METHOD'] === 'POST')) {
+    $completed = new CompletedTask();
+    $completed->completedTaskPost();
 }
 
 if (($url === '/logout') && ($_SERVER['REQUEST_METHOD'] === 'GET')) {

@@ -17,17 +17,17 @@ class User
         $this->password = $password;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }

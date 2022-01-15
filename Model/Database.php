@@ -29,7 +29,8 @@ class Database
         $query->execute();
     }
 
-    public function selectUserFromDatabaseByEmail(string $email ){
+    public function selectUserFromDatabaseByEmail(string $email)
+    {
         $sql = "SELECT * FROM users WHERE email = :email";
         $query = $this->db->prepare($sql);
         $query->bindValue(':email', $email, PDO::PARAM_STR);
@@ -37,7 +38,31 @@ class Database
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function insertNewTaskIntoDatabase($title, $text, $author)
+    {
+        $sql = "INSERT INTO tasks (title, text, task_data, author) VALUES (:title, :text, NOW(), :author);";
+        $query = $this->db->prepare($sql);
+        $query->bindValue(":title", $title, PDO::PARAM_STR);
+        $query->bindValue(":text", $text, PDO::PARAM_STR);
+        $query->bindValue(":author", $author, PDO::PARAM_INT);
+        $query->execute();
+    }
 
+    public function selectAllTasksByUser($userId)
+    {
+        $sql = "SELECT * FROM tasks LEFT JOIN users ON tasks.author = users.id WHERE author = :userId And status = 0;";
+        $query = $this->db->prepare($sql);
+        $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 
+    public function modifyTaskStatusAsCompleted($taskId)
+    {
+        $sql = "UPDATE tasks SET status = 1 WHERE id_task = :taskId";
+        $query = $this->db->prepare($sql);
+        $query->bindValue(':taskId', $taskId, PDO:: PARAM_INT);
+        $query->execute();
+    }
 
 }
